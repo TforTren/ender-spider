@@ -1,0 +1,52 @@
+(import image)
+(define blak
+  (lambda (size1 color1)
+    (square size1 "solid" color1)))
+(define blusq
+  (lambda (size1 size2 color2 color1)
+    (overlay (circle size2 "solid" color2) (square size1 "outline" color1))))
+(define pinksq
+  (lambda (size1 size2 color3 color1)
+    (overlay (circle size2 "solid" color3) (blak size1 color1))))
+(define line
+  (lambda (size1 size2 color2 color1)
+    (beside (blusq size1 size2 color2 color1) (blusq size1 size2 color2 color1) (blusq size1 size2 color2 color1) 
+      (blusq size1 size2 color2 color1) (blusq size1 size2 color2 color1) (blusq size1 size2 color2 color1) 
+      (blusq size1 size2 color2 color1) (blusq size1 size2 color2 color1) )))
+(define line2
+  (lambda (size1 size2 color2 color1)
+    (beside (blusq size1 size2 color2 color1) (blusq size1 size2 color2 color1) (blusq size1 size2 color2 color1)
+      (blak size1 color1) (blak size1 color1) (blusq size1 size2 color2 color1)
+      (blusq size1 size2 color2 color1) (blusq size1 size2 color2 color1))))
+(define armup
+  (lambda (size1 size2 color2 color1)
+    (above (beside (blusq size1 size2 color2 color1) (blak size1 color1) (blusq size1 size2 color2 color1) (blak size1 color1) 
+      (blak size1 color1) (blusq size1 size2 color2 color1)
+      (blak size1 color1) (blusq size1 size2 color2 color1))
+  (beside (blusq size1 size2 color2 color1) (blak size1 color1) (blak size1 color1)
+    (blak size1 color1) (blak size1 color1) (blak size1 color1) (blak size1 color1) (blusq size1 size2 color2 color1)))))
+    
+(define armdown
+  (lambda (size1 size2 color2 color1)
+    (above (beside (blusq size1 size2 color2 color1) (blak size1 color1) (blak size1 color1) (blak size1 color1)
+      (blak size1 color1) (blak size1 color1) (blak size1 color1) (blusq size1 size2 color2 color1))
+  (beside (blusq size1 size2 color2 color1) (blak size1 color1)
+    (blusq size1 size2 color2 color1) (blak size1 color1) (blak size1 color1) (blusq size1 size2 color2 color1)
+    (blak size1 color1) (blusq size1 size2 color2 color1)))))
+
+(define generate-my-image
+  (lambda (size1 size2 color1 color2 color3)
+    (above(beside (line size1 size2 color2 color1))
+  (above (line size1 size2 color2 color1)
+  (beside (blusq size1 size2 color2 color1) (blusq size1 size2 color2 color1) 
+    (blusq size1 size2 color2 color1) (pinksq size1 size2 color3 color1) (pinksq size1 size2 color3 color1) (blusq size1 size2 color2 color1) 
+    (blusq size1 size2 color2 color1) (blusq size1 size2 color2 color1) )
+  (above (armup size1 size2 color2 color1) (line2 size1 size2 color2 color1) (armdown size1 size2 color2 color1) (line2 size1 size2 color2 color1) 
+    (line2 size1 size2 color2 color1) (armdown size1 size2 color2 color1) (line2 size1 size2 color2 color1) (armup size1 size2 color2 color1)
+    (line2 size1 size2 color2 color1) (line2 size1 size2 color2 color1) (line size1 size2 color2 color1) (line size1 size2 color2 color1))))))
+
+(define my-image-alt (generate-my-image 50 15 "black" "green" "magenta"))
+(define my-other-image (generate-my-image 50 15 "red" "blue" "yellow"))
+my-image-alt
+my-other-image
+
